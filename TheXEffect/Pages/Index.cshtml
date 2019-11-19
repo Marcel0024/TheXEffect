@@ -1,0 +1,54 @@
+﻿@page
+@model IndexModel
+@using TheXEffect.Data.Extensions;
+@{
+    ViewData["Title"] = "Home";
+}
+
+<link href="~/lib/fullcalendar/core/main.min.css" rel="stylesheet" />
+<link href="~/lib/fullcalendar/daygrid/main.min.css" rel="stylesheet" />
+
+<style>
+    .fc-header-toolbar {
+        padding-top: 1em;
+        padding-left: 1em;
+        padding-right: 1em;
+    }
+
+    .fc-event {
+        position: relative;
+        display: block;
+        font-size: 5em;
+        line-height: 1;
+        border-radius: 0px;
+        border: 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .fc-dayGrid-view .fc-body .fc-row {
+        min-height: 7em;
+    }
+
+    .fc-event, .fc-event-dot {
+        background-color: #ffffff;
+    }
+</style>
+
+<div id='calendar-container'>
+    <div id='calendar'></div>
+</div>
+
+@section Scripts{
+    <script>
+        var authenticated = @User.Identity.IsAuthenticated.ToString().ToLower();
+        var goal = '@User.GetDefaultCalendarGoal()';
+    </script>
+
+    <script src="~/lib/fullcalendar/core/main.min.js"></script>
+    <script src="~/lib/fullcalendar/daygrid/main.min.js"></script>
+    <script src="~/lib/fullcalendar/interaction/main.min.js"></script>
+    <script src="~/lib/moment.js/moment.min.js"></script>
+    <script src="~/js/calendar.js" asp-append-version="true"></script>
+}
+
