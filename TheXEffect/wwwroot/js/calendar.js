@@ -89,6 +89,19 @@ function toggleEvent(event, successCallback) {
             }),
             contentType: "application/json; charset=utf-8",
             success: function (data) {
+                if (data.showCompliment) {
+                    if (!(Cookies.get('compliment'))) {
+                        Cookies.set('compliment', 'true', { expires: 0.5 });
+
+                        $.toast({
+                            heading: 'Success',
+                            text: 'Nice!',
+                            icon: 'success',
+                            position: 'top-left'
+                        });
+                    }
+                }
+
                 successCallback();
             }
         });

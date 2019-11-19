@@ -83,7 +83,7 @@ namespace TheXEffect
                     cnt.Context.Response.GetTypedHeaders().CacheControl = new CacheControlHeaderValue
                     {
                         Public = true,
-                        MaxAge = TimeSpan.FromDays(env.IsDevelopment() ? 0 : 7)
+                        MaxAge = TimeSpan.FromDays(env.IsDevelopment() ? 0 : 30)
                     };
                 }
             });

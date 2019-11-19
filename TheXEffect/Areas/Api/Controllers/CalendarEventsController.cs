@@ -33,6 +33,7 @@ namespace TheXEffect.Areas.Api.Controllers
                 return BadRequest();
             }
 
+            var showCompliment = false;
             var calendarId = User.GetDefaultCalendarId();
 
             var calendarEvents = await _dbContext.CalendarEvents
@@ -52,11 +53,16 @@ namespace TheXEffect.Areas.Api.Controllers
                     Title = model.Title,
                     CalendarId = User.GetDefaultCalendarId()
                 });
+
+                if (parsedDate.Date == DateTime.Now.Date)
+                {
+                    showCompliment = true;
+                }
             }
 
             await _dbContext.SaveChangesAsync();
 
-            return Ok();
+            return new JsonResult(new { showCompliment });
         }
 
         [HttpPost("addmultiple")]

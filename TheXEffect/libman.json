@@ -27,6 +27,22 @@
         "css/bootstrap.min.css",
         "js/bootstrap.bundle.min.js"
       ]
+    },
+    {
+      "library": "jquery-toast-plugin@1.3.2",
+      "destination": "wwwroot/lib/jquery-toast-plugin/",
+      "files": [
+        "jquery.toast.min.js",
+        "jquery.toast.min.css"
+      ]
     }
+  ,
+{
+  "library": "js-cookie@2.2.1",
+  "destination": "wwwroot/lib/js-cookie/",
+  "files": [
+    "js.cookie.min.js"
   ]
+}
+]
 }
