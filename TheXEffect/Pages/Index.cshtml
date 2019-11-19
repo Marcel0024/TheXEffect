@@ -2,7 +2,7 @@
 @model IndexModel
 @using TheXEffect.Data.Extensions;
 @{
-    ViewData["Title"] = "Home";
+    ViewData["Title"] = string.IsNullOrWhiteSpace(User.GetDefaultCalendarGoal()) ? "Tracking" : User.GetDefaultCalendarGoal();
 }
 
 <link href="~/lib/fullcalendar/core/main.min.css" rel="stylesheet" />
