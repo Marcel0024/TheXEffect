@@ -69,7 +69,7 @@ namespace TheXEffect.Areas.Identity.Pages.Account.Manage
 
             var user = await _userManager.GetUserAsync(HttpContext.User);
 
-            await _userManager.ReplaceClaimAsync(user, User.FindFirst(UserClaims.DefaultCalendarGoal), new Claim(UserClaims.DefaultCalendarGoal, Input.DefaultCalendarGoal));
+            await _userManager.ReplaceClaimAsync(user, User.FindFirst(UserClaims.DefaultCalendarGoal), new Claim(UserClaims.DefaultCalendarGoal, Input.DefaultCalendarGoal ?? ""));
 
             await _signInManager.RefreshSignInAsync(user);
 
