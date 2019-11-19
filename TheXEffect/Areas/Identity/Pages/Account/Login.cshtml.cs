@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
+using TheXEffect.Data;
 using TheXEffect.Data.Models;
 
 namespace TheXEffect.Areas.Identity.Pages.Account
@@ -21,17 +20,20 @@ namespace TheXEffect.Areas.Identity.Pages.Account
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly TheXDbContext _dbContext;
         private readonly IEmailSender _emailSender;
 
         public LoginModel(SignInManager<User> signInManager, 
             ILogger<LoginModel> logger,
             UserManager<User> userManager,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            TheXDbContext dbContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
+            _dbContext = dbContext;
         }
 
         [BindProperty]
@@ -82,7 +84,8 @@ namespace TheXEffect.Areas.Identity.Pages.Account
             }
 
             if (ModelState.IsValid)
-            { 
+            {
+                user.DateTimeLastLoggedIn = DateTime.UtcNow;
                 var result = await _signInManager.PasswordSignInAsync(user, Input.Password, Input.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {

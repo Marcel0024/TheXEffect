@@ -9,7 +9,6 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using TheXEffect.Data;
 using TheXEffect.Data.Constants;
 using TheXEffect.Data.Models;
 
@@ -109,6 +108,9 @@ namespace TheXEffect.Areas.Identity.Pages.Account
                     };
 
                     _dbContext.Add(newCalendar);
+
+                    user.DateTimeCreated = DateTime.UtcNow;
+
                     await _dbContext.SaveChangesAsync();
 
                     await _userManager.AddClaimAsync(user, new Claim(UserClaims.DefaultCalendarId, newCalendar.Id.ToString()));
