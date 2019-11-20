@@ -94,7 +94,6 @@ function toggleEvent(event, successCallback) {
                         Cookies.set('compliment', 'true', { expires: 0.5 });
 
                         $.toast({
-                            heading: 'Success',
                             text: 'Nice!',
                             icon: 'success',
                             position: 'top-left'

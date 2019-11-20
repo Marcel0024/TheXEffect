@@ -6,7 +6,7 @@ if (!(Cookies.get('registernotification'))) {
 
     $.toast({
         heading: 'New',
-        text: "You can now register to use The X Effect across devices, and never loose your progress!",
+        text: "You can now register to monitor the same progress on multiple devices!",
         showHideTransition: 'fade',
         hideAfter: 10000,
         position: 'top-left',

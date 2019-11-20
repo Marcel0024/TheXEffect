@@ -118,3 +118,4 @@ src/.vs/config/applicationhost.config
 
 *AppSettings.Production.json
 PublishProfiles/
+server/

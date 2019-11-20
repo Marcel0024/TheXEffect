@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -10,8 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Net.Http.Headers;
 using System;
+using System.IO;
+using TheXEffect.Data;
 using TheXEffect.Data.Models;
-using TheXDbContext = TheXEffect.Data.TheXDbContext;
 
 namespace TheXEffect
 {
@@ -48,21 +50,26 @@ namespace TheXEffect
             {
                 options.Cookie.HttpOnly = true;
                 options.SlidingExpiration = true;
-                options.ExpireTimeSpan = TimeSpan.FromDays(369);
-                options.Cookie.Name = "The-X-Effect_login";
+                options.ExpireTimeSpan = TimeSpan.FromDays(30);
+                options.Cookie.Name = "theXeffect_login";
+                options.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Strict;
             });
 
             services.Configure<SecurityStampValidatorOptions>(options =>
             {
-                options.ValidationInterval = TimeSpan.FromDays(369);
+                options.ValidationInterval = TimeSpan.FromDays(10);
             });
 
-            services.AddAntiforgery(opts => opts.Cookie.Name = "The-X-Effect_anti-forgery");
+            services.AddAntiforgery(opts =>
+            {
+                opts.Cookie.Name = "theXeffect_anti-forgery";
+            });
+
+            services.AddDataProtection().PersistKeysToFileSystem(new DirectoryInfo(@"server\keys\"));
 
             services.AddRazorPages();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -72,7 +79,6 @@ namespace TheXEffect
             else
             {
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
