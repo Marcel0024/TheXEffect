@@ -1,6 +1,6 @@
 ## The X Effect
 
-This project is hosted on https://www.thexeffect.io
+This project is hosted on http://www.thexeffect.io
 
 ##### What is The X Effect
 
